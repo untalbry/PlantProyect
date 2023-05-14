@@ -35,9 +35,9 @@ void loop() {
   //int humedad2 = map( sensor2, 1024, 0, 0, 100);
   
   Serial.print("Conductivilidad 0-1024 : ");
-  Serial.print(conductivilidad);
+  Serial.print(sensor1);
   Serial.print(" humedad: ");
-  Serial.print(humedad);
+  Serial.print(humedad1);
   Serial.println("%");
 
   //Si la humedad es menor al que debe de tener la planta
