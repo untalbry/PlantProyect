@@ -1,29 +1,35 @@
 //@version. 1.0.4
-//Last to modify: @bryan
-/**Descripción: 
- * Archivo para programar el sensor de humedad
+//Last modified by: @bryan
+/**Description: 
+ * File to program the humidity sensor
  * 
- * Modificaciones: Añadir funcionamiento del módulo L298N con dos sensores de humedad
- * Pasando a codigo funcional: agregando funciones setBomba y printHumety 
+ * Modifications: Add functionality of the L298N module with two humidity sensors
+ * Turning into functional code: adding setBomba and printHumety functions
 */
 
-const int sensorPin = A0;
-const int ENA_PIN = 6; // pin ENA del módulo L298N
-const int IN1_PIN = 7; // pin IN1 del módulo L298N 
-const int IN2_PIN = 8; // pin IN2 del módulo L298N
-const int ENB_PIN = 9; // pin ENB del módulo L298N
-const int IN3_PIN = 10; // pin IN3 del módulo L298N 
-const int IN4_PIN = 11; // pin IN4 del módulo L298N
+const int sensorPin1 = A0;
+const int sensorPin2 = A1;
 
-const int HUMEDAD_MINIMA = 60; //valor máximo
+const int ENA_PIN = 6; // ENA pin of the L298N module
+const int IN1_PIN = 7; // IN1 pin of the L298N module
+const int IN2_PIN = 8; // IN2 pin of the L298N module
+const int ENB_PIN = 9; // ENB pin of the L298N module
+const int IN3_PIN = 10; // IN3 pin of the L298N module
+const int IN4_PIN = 11; // IN4 pin of the L298N module
+
+const int HUMEDAD_MINIMA = 60; // Minimum value
 
 void setup() {
-  //Iniciar comunicacion serial entre arduino y pc 9600 es la velocidad de
-  //transmisión de datos a través del puerto serie. (9600 baudios)
+  // Start serial communication between Arduino and PC. 9600 is the data transmission
+  // rate through the serial port. (9600 baud)
   Serial.begin(9600);
+  
   pinMode(ENA_PIN, OUTPUT);
   pinMode(IN1_PIN, OUTPUT);
   pinMode(IN2_PIN, OUTPUT);
+  pinMode(ENB_PIN, OUTPUT);
+  pinMode(IN3_PIN, OUTPUT);
+  pinMode(IN4_PIN, OUTPUT);
 
 }
 void setBomba(int PIN){
@@ -39,13 +45,13 @@ void printHumety(int sensor, int humedad){
   Serial.println("%");
 }
 void loop() {
-  digitalWrite(ENA_PIN, HIGH); // Habilita el módulo L298N
-  digitalWrite(IN2_PIN, LOW); //Habilita el puerto 1N2 en BAJO
-  digitalWrite(IN4_PIN, LOW); //Habilita el puerto 1N4 en BAJO
+  digitalWrite(ENA_PIN, HIGH); // Enable the L298N module
+  digitalWrite(IN2_PIN, LOW); // Enable IN2 port as LOW
+  digitalWrite(IN4_PIN, LOW); // Enable IN4 port as LOW
 
-  //se crea variable de conductivilidad que recibe los valores del sensor 
-  int sensor1 = analogRead(sensorPin);
-  int sensor2 = analogRead(sensorPin);
+ // Create a conductivity variable that receives sensor values
+  int sensor1 = analogRead(sensorPin1);
+  int sensor2 = analogRead(sensorPin2);
 
   //Convertimos la variable anterior a un porcentaje de humedad 
   //Donde 0 es el valor máximo de humedad y 1024 el valor mínimo
@@ -55,18 +61,18 @@ void loop() {
   printHumety(sensor1, humedad1);
   printHumety(sensor2, humedad2);
 
-  //Si la humedad es menor al que debe de tener la planta
-  //Colocamos HIGH al pin de la bomba1. 
+ // If the humidity is lower than the required value for the plant
+  // Set the pump1 pin to HIGH 
   if(humedad1 < HUMEDAD_MINIMA){
     setBomba(IN1_PIN);
   }else{
-    digitalWrite(IN1_PIN, LOW); //Habilita el puerto 1N2 en BAJO
+    digitalWrite(IN1_PIN, LOW); /// Enable IN2 port as LOW
   }
-  
+  // Set the pump2 pin to HIGH 
   if(humedad2 < HUMEDAD_MINIMA){
      setBomba(IN3_PIN);
   }else{
-    digitalWrite(IN3_PIN, LOW); //Habilita el puerto 1N2 en BAJO
+    digitalWrite(IN3_PIN, LOW); // Enable IN3 port as LOW
   }
   
   delay(2000); 
