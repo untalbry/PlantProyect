@@ -39,8 +39,7 @@ El Arduino no se estará alimentando de una fuente de energía independiente con
 
 # Software
 <p>
-</p>
-## Fusion 360
+Fusion 360
  <p>
   Dentro del software que utilizamos se encuentra Fusion 360, es una plataforma de software CAD, CAM, CAE y de circuitos impresos de modelado 3D basada en la nube para el diseño y la manufactura de productos donde se logra diseñar,  proyectar y crear amplios componentes electrónicos y las herramientas de diseño ahorrando tiempo y dinero, fabricando piezas más rápido. 
   Se diseñó un terreno irregular para la implementación del proyecto dentro del sembradío, utilizando las nuevas tecnologías, se mandó a imprimir el modelo en una impresora 3D para simular el trabajo a escala
